@@ -1,0 +1,31 @@
+{% extends "groups/gbase.html" %}
+{% block pregroup %}
+<h1>{{group.name}}</h1>
+<h3>Member: {{group.members.count}} </h3>
+<div class="content">
+    {% if user in group.members.all %}
+    <a class='btn  btn-fill btn-lg btn-warning' href="{%url 'groups:leave' slug=group.slug%}">Leave</a>
+    
+    {% else %}
+    <a class='btn btn-lg btn-default' href="{%url 'groups:join' slug=group.slug%}">Join</a>
+
+    {% endif %}
+</div>
+
+{% block group_content %}
+<div class="col-md-8">
+    {% if group.posts.count == 0 %}
+    <h2>No post in this group yet!!</h2>
+    
+    {% else %}
+    {% for post in group.post_group.all  %}
+    <!-- include tag works the same way as extends but it is used to inject inside a template tag
+    whereas extends is used to put on  the whole page. -->
+    {% include "posts/_post.html" %} 
+    {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock  %}
+
+{% endblock  %}

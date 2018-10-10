@@ -1,0 +1,13 @@
+{% extends "posts/base.html" %}
+{% block post_content  %}
+<h3>Confirm delete?</h3>
+<div class="posts">
+    {% include "posts/_post.html" with post=object hide_delete=True %}
+</div>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class='btn btn-danger btn-lg' value="Delete">
+        <a class='btn btn-lg btn-warning' href="{% url 'posts:single' username=user.username pk=object.pk%}">Go Back</a>
+    </form>
+
+{% endblock  %}
